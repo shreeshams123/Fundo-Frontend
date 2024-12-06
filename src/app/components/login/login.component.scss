@@ -1,0 +1,29 @@
+.logincontainer{
+    display:flex;
+    min-height: 100vh;
+}
+.login-box-container{
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content:space-evenly;
+    padding: 20px 20px;
+    border:1px solid black;
+    margin: auto;
+    width: 400px;
+    height: auto;
+}
+.login-forgotpassword{
+    display: flex;
+    align-self: flex-start;
+}
+.login-action-buttons{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.login-example-full-width {
+    width: 100%;
+    margin-bottom:10px;
+  }

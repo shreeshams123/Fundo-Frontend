@@ -1,0 +1,46 @@
+<div class="registercontainer">
+    <form [formGroup]="signupForm" class="register-box-container">
+        <div>
+        <h1 style="color: yellow;">Fundo</h1>
+        <h2>Create your Fundo account</h2>
+        <div class="register-input-cnt">
+            <mat-form-field >
+                <input formControlName="name" matInput placeholder="Name">
+                <mat-error *ngIf="submitted && signupControls?.['name']?.['errors']?.['required']">Name is required</mat-error>
+                
+              </mat-form-field>
+              <mat-form-field >
+                <input formControlName="phone"  matInput placeholder="Phone">
+                <mat-error *ngIf="submitted && signupControls?.['phone']?.['errors']?.['required']">Phone number is required</mat-error>
+                <mat-error *ngIf="submitted && signupControls?.['phone']?.['errors']?.['pattern']">Incorrect Phone number Format</mat-error>
+
+              </mat-form-field>
+        </div>
+        <mat-form-field class="register-example-full-width ">
+            <input formControlName="email" matInput placeholder="Email" type="email">
+            <mat-error *ngIf="submitted && signupControls?.['email']?.['errors']?.['required']">Email is required</mat-error>
+            <mat-error *ngIf="submitted && signupControls?.['email']?.['errors']?.['email']">Incorrect Email Format</mat-error>
+          </mat-form-field>
+        <div class="register-input-cnt">
+            <mat-form-field >
+                <input formControlName="password"  matInput placeholder="Password" type="password">
+                <mat-error *ngIf="submitted && signupControls?.['password']?.['errors']?.['required']">Password is required</mat-error>
+                <mat-error *ngIf="submitted && signupControls?.['password']?.['errors']?.['pattern']">Password should contain minimum 8 characters </mat-error>
+              </mat-form-field>
+              <mat-form-field >
+                <input formControlName="confirm"  matInput placeholder="Confirm" type="password">
+                <mat-error *ngIf="submitted && signupControls?.['confirm']?.['errors']?.['required']">Confirm Password is required</mat-error>
+                <mat-error *ngIf="submitted && signupControls?.['confirm']?.['errors']?.['mustMatch']">Password and confirm password should be same</mat-error>
+              </mat-form-field>
+              
+        </div>
+        <div class="register-action-buttons">
+            <button mat-button color="primary">sign in instead</button>
+            <button mat-button color="primary" (click)="handleSignup()" >register</button>
+        </div>
+       </div>
+       <div>
+        <img src="assets\logo.jpg">
+       </div>
+      </form>
+</div>

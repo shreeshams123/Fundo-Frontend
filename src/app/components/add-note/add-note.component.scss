@@ -1,0 +1,50 @@
+.compact-note{
+    background-color: white;
+    box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
+    justify-self: center;
+    border-radius: 8px;
+    padding: 8px;
+    height: auto;
+    width: 50%;
+    margin: 10px;
+}
+.expanded-note{
+    display: flex;
+    justify-self: center;
+    flex-direction: column;
+    width: 50%;
+    background-color: white;
+    box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 16px;
+    margin: 10px;
+}
+.expanded-note input{
+    border:none;
+    outline: none;
+    margin-bottom: 8px;
+    width:100%;
+    background-color: transparent;
+    font-size: 1rem;
+    color:black;
+    font-weight: bold;
+}
+.expanded-note textarea{
+    border:none;
+    outline: none;
+    margin-bottom: 8px;
+    width: 100%;
+    background-color: transparent;
+    min-height: 50px;
+    overflow: hidden;
+    resize: none;
+    font-size: 1rem;
+    color: black;
+}
+
+.note-actions{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}

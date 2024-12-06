@@ -1,0 +1,23 @@
+<div class="logincontainer">
+    <form [formGroup]="loginForm" class="login-box-container">
+        <h1 style="color: yellow;">FunDo</h1>
+        <h2>Sign in</h2>
+        <div>Use your Fundo account</div>
+        <mat-form-field class="login-example-full-width ">
+            <input formControlName="email" matInput placeholder="Email">
+            <mat-error *ngIf="submitted && loginControls?.['email']?.['errors']?.['required']">Email is required</mat-error>
+            <mat-error *ngIf="submitted && loginControls?.['email']?.['errors']?.['email']">Incorrect Email Format</mat-error>
+          </mat-form-field>
+          <mat-form-field class="login-example-full-width ">
+            <input formControlName="password" matInput placeholder="Password" type="Password">
+            <mat-error *ngIf="submitted && loginControls?.['password']?.['errors']?.['required']">Password is required</mat-error>
+            <mat-error *ngIf="submitted && loginControls?.['password']?.['errors']?.['pattern']">Incorrect Password Format</mat-error>
+
+          </mat-form-field> 
+          <button mat-button color="primary" class="login-forgotpassword">Forgot Password</button>
+          <div class="login-action-buttons">
+            <button mat-button color="primary">Create account</button>
+            <button mat-button color="primary" (click)="handleLogin()">Login</button>
+          </div>
+        </form>
+</div>
