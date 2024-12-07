@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { REMINDER_ICON, COLLABRATOR_ICON, COLOR_PALATTE_ICON, IMG_ICON, ARCHIVE_ICON, MORE_ICON, DELETE_FOREVER_ICON, RESTORE_ICON, UNARCHIVE_ICON } from 'src/assets/svg-icons';
@@ -9,6 +9,10 @@ import { REMINDER_ICON, COLLABRATOR_ICON, COLOR_PALATTE_ICON, IMG_ICON, ARCHIVE_
   styleUrls: ['./add-note.component.scss']
 })
 export class AddNoteComponent {
+  title: string = ""
+  description: string = ""
+  @Output() updateNotesList = new EventEmitter()
+
   constructor(private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) {
     iconRegistry.addSvgIconLiteral('reminder-icon', sanitizer.bypassSecurityTrustHtml(REMINDER_ICON));
     iconRegistry.addSvgIconLiteral('collabrator-icon', sanitizer.bypassSecurityTrustHtml(COLLABRATOR_ICON));
@@ -26,8 +30,16 @@ expandNote(){
 }
 autoResize(event: Event) {
   const textarea = event.target as HTMLTextAreaElement;
-  textarea.style.height = 'auto'; // Reset the height to auto to recalculate the scrollHeight
-  textarea.style.height = `${textarea.scrollHeight}px`; // Adjust height based on content
+  textarea.style.height = 'auto'; 
+  textarea.style.height = `${textarea.scrollHeight}px`; 
+}
+
+handleAddNote() {
+  this.isExpanded = !this.isExpanded
+  console.log(this.title, this.description);
+  this.updateNotesList.emit({data:{title: this.title, description: this.description}, action: "add"})
+  this.title = ""
+  this.description = ""
 }
 }
 

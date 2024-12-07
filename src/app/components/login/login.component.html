@@ -1,5 +1,6 @@
 <div class="logincontainer">
-    <form [formGroup]="loginForm" class="login-box-container">
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>   
+ <form [formGroup]="loginForm" class="login-box-container">
         <h1 style="color: yellow;">FunDo</h1>
         <h2>Sign in</h2>
         <div>Use your Fundo account</div>

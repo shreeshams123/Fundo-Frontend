@@ -1,0 +1,40 @@
+/* Parent container for notes */
+.notes {
+    display: flex;
+    justify-content: center; /* Ensures content is centered */
+    overflow-x: hidden; /* Hide horizontal overflow */
+  }
+.notes-container-cnt {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    overflow-x: hidden;
+}
+
+
+.app-add-note {
+    margin-bottom: 20px;
+}
+
+
+.notes-cnt {
+    display: flex;
+    // justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+}
+
+
+.app-note-card {
+    box-sizing: border-box;
+    margin-bottom: 16px;
+    background-color: #fff;
+    padding: 16px;
+}
+
+

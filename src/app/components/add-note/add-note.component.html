@@ -2,8 +2,8 @@
     <span>Take a note...</span>
 </div>
 <div class="expanded-note" *ngIf="isExpanded">
-    <input placeholder="Title">
-    <textarea placeholder="Take a note..." (input)="autoResize($event)"></textarea>
+    <input placeholder="Title" [(ngModel)]="title">
+    <textarea placeholder="Take a note..." (input)="autoResize($event)" [(ngModel)]="description"></textarea>
     <div class="note-actions">
         <div class="note-icons">
         <button mat-icon-button aria-label="reminder button" matTooltip="Reminder">
@@ -23,7 +23,7 @@
         </button> 
     </div>
     <div class="note-button">
-        <button mat-button color="primary">Close</button>
+        <button mat-button color="primary" (click)="handleAddNote()">Close</button>
     </div>
     
     </div>

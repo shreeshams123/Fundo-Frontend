@@ -1,7 +1,7 @@
 <div class="notecard-container">
     <div class="notecard">
-        <span class="notecard-title">title</span>
-        <span class="notecard-description">description  </span>
+        <span class="notecard-title">{{noteDetails.title}}</span>
+        <span class="notecard-description">{{noteDetails.description}}</span>
         <div class="notecard-actions">
             <button mat-icon-button aria-label="reminder button" matTooltip="Reminder">
                 <mat-icon svgIcon="reminder-icon" aria-hidden="false" aria-label="reminder icon"></mat-icon>
@@ -12,13 +12,19 @@
             <button mat-icon-button aria-label="color button" matTooltip="Background Color Options">
                 <mat-icon svgIcon="color-palatte-icon" aria-hidden="false" aria-label="color button icon"></mat-icon>
             </button>
-            <button mat-icon-button aria-label="archive button" matTooltip="Archive Options">
+            <button mat-icon-button aria-label="archive button" matTooltip="Archive Options" (click)="handleIconsClick('archive')">
                 <mat-icon svgIcon="archive-icon" aria-hidden="false" aria-label="archive button icon"></mat-icon>
             </button>
-            <button mat-icon-button aria-label="more button" matTooltip="More Options">
+            <button mat-icon-button aria-label="more button" matTooltip="More Options" [matMenuTriggerFor]="moreMenu">
                 <mat-icon svgIcon="more-icon" aria-hidden="false" aria-label="more button icon"></mat-icon>
             </button>
+            <mat-menu #moreMenu="matMenu">
+                <button mat-menu-item>Item 1</button>
+                <button mat-menu-item>Item 2</button>
+              </mat-menu>
+              
         </div>
+
     </div>
 </div>
 

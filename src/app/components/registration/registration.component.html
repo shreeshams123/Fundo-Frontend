@@ -1,4 +1,5 @@
 <div class="registercontainer">
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>   
     <form [formGroup]="signupForm" class="register-box-container">
         <div>
         <h1 style="color: yellow;">Fundo</h1>
@@ -28,7 +29,7 @@
                 <mat-error *ngIf="submitted && signupControls?.['password']?.['errors']?.['pattern']">Password should contain minimum 8 characters </mat-error>
               </mat-form-field>
               <mat-form-field >
-                <input formControlName="confirm"  matInput placeholder="Confirm" type="password">
+                <input formControlName="confirmPassword"  matInput placeholder="Confirm" type="password">
                 <mat-error *ngIf="submitted && signupControls?.['confirm']?.['errors']?.['required']">Confirm Password is required</mat-error>
                 <mat-error *ngIf="submitted && signupControls?.['confirm']?.['errors']?.['mustMatch']">Password and confirm password should be same</mat-error>
               </mat-form-field>

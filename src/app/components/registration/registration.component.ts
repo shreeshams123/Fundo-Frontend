@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MustMatch } from '../../helpers/must-match.validator';
+import { UserService } from 'src/app/services/user-service/user.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -9,7 +11,8 @@ import { MustMatch } from '../../helpers/must-match.validator';
 export class RegistrationComponent implements OnInit {
   signupForm!:FormGroup;
   submitted:boolean=false;
-  constructor(private formBuilder:FormBuilder){}
+  errorMessage:string|null=null
+  constructor(private formBuilder:FormBuilder,private userservice:UserService,private router:Router){}
   ngOnInit() {
     this.signupForm = this.formBuilder.group({
       name:['',Validators.required],
@@ -18,24 +21,43 @@ export class RegistrationComponent implements OnInit {
         password: ['', [Validators.required,Validators.pattern(
           '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$'
         ) ]],
-        confirm: ['', [Validators.required,Validators.pattern(
+        confirmPassword: ['', [Validators.required,Validators.pattern(
           '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$'
         ) ]]
     },{
-      validator: MustMatch('password', 'confirm')
+      validator: MustMatch('password', 'confirmPassword')
   });
   }
   get signupControls() {return this.signupForm.controls}
 
   handleSignup() {
     const {status = "", value } = this.signupForm
+    const{name,email,phone,password,confirmPassword}=value
     console.log(this.signupForm.controls);
     this.submitted = true
+    this.errorMessage=null
     if(status == "INVALID") return
     console.log(this.signupForm);
     console.log(this.signupForm.controls);
-    //api calling
-    
+    this.userservice.registerApiCall({name,email,phone,password,confirmPassword}).subscribe({next:(res)=>
+      {
+        console.log(res)
+        this.router.navigate(["/"])
+      },
+      error: (err) => {
+        console.log(err);
+        if(err.error?.message){
+        this.errorMessage=err.error.message
+        }
+        else{
+          this.errorMessage="Unexpected error occured";        
+        }
+        setTimeout(() => {
+          this.errorMessage = ""; 
+      }, 3000);
+      }
+      })
+      
+      
+    }
   }
-
-}

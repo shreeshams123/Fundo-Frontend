@@ -1,0 +1,36 @@
+<div>
+    <mat-toolbar>
+      <button mat-icon-button (click)="sidenav.toggle()" class="example-icon" >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>FunDo</span>
+    </mat-toolbar>
+    <mat-sidenav-container class="dashboard-container">
+        <mat-sidenav #sidenav mode="side"  class="dashboard-sidenav">
+          <mat-nav-list>
+            <a mat-list-item (click)="navigateTo('notes')">Notes</a>
+            <a mat-list-item (click)="navigateTo('archive')">Archive</a>
+            <a mat-list-item (click)="navigateTo('trash')">Trash</a>
+          </mat-nav-list>
+        </mat-sidenav>
+        
+        <mat-sidenav-content>
+          <router-outlet></router-outlet>
+        </mat-sidenav-content>
+      </mat-sidenav-container>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
