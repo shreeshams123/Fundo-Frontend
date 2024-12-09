@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard-container.component.scss']
 })
 export class DashboardContainerComponent implements OnInit {
-
+  drawerState: boolean = false
 constructor(private router:Router){}
   ngOnInit(): void {
     this.router.navigate(["dashboard/notes"])
@@ -15,5 +15,8 @@ constructor(private router:Router){}
 
 navigateTo(route:string){
 this.router.navigate([`/dashboard/${route}`])
+}
+toggleDrawerState() {
+  this.drawerState = !this.drawerState
 }
 }

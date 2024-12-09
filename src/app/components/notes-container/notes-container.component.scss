@@ -1,9 +1,4 @@
-/* Parent container for notes */
-.notes {
-    display: flex;
-    justify-content: center; /* Ensures content is centered */
-    overflow-x: hidden; /* Hide horizontal overflow */
-  }
+
 .notes-container-cnt {
     display: flex;
     flex-direction: column;
@@ -22,7 +17,6 @@
 
 .notes-cnt {
     display: flex;
-    // justify-content: space-between;
     gap: 16px;
     width: 100%;
     box-sizing: border-box;

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { NotesService } from 'src/app/services/notes-service/notes.service';
 import { REMINDER_ICON, COLLABRATOR_ICON, COLOR_PALATTE_ICON, IMG_ICON, ARCHIVE_ICON, MORE_ICON, DELETE_FOREVER_ICON, RESTORE_ICON, UNARCHIVE_ICON } from 'src/assets/svg-icons';
 
 @Component({
@@ -13,7 +14,7 @@ export class AddNoteComponent {
   description: string = ""
   @Output() updateNotesList = new EventEmitter()
 
-  constructor(private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) {
+  constructor(private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer,private noteservice:NotesService) {
     iconRegistry.addSvgIconLiteral('reminder-icon', sanitizer.bypassSecurityTrustHtml(REMINDER_ICON));
     iconRegistry.addSvgIconLiteral('collabrator-icon', sanitizer.bypassSecurityTrustHtml(COLLABRATOR_ICON));
     iconRegistry.addSvgIconLiteral('color-palatte-icon', sanitizer.bypassSecurityTrustHtml(COLOR_PALATTE_ICON));
@@ -37,7 +38,14 @@ autoResize(event: Event) {
 handleAddNote() {
   this.isExpanded = !this.isExpanded
   console.log(this.title, this.description);
-  this.updateNotesList.emit({data:{title: this.title, description: this.description}, action: "add"})
+  this.noteservice.postNotesApiCall({title:this.title,description:this.description}).subscribe({next:(res)=>{
+    console.log(res);
+    this.updateNotesList.emit({data:res, action: "add"})
+
+  },
+  error:(err)=>{
+    console.log(err);
+  }})
   this.title = ""
   this.description = ""
 }

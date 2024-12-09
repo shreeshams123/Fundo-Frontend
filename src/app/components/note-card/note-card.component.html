@@ -1,31 +1,62 @@
 <div class="notecard-container">
-    <div class="notecard">
+    <div class="notecard" [style.backgroundColor]="noteDetails.color">
         <span class="notecard-title">{{noteDetails.title}}</span>
         <span class="notecard-description">{{noteDetails.description}}</span>
-        <div class="notecard-actions">
+        <div class="notecard-actions" *ngIf="containerType == 'trashContainer' else notesArchiveIcon">
+            <button mat-icon-button aria-label="restore button" matTooltip="Restore Options" (click)="handleIconsClick('restore')">
+                <mat-icon svgIcon="restore-icon" aria-hidden="false" aria-label="restore button icon"></mat-icon>
+            </button>
+            <button mat-icon-button aria-label="delete button" matTooltip="Delete Options" (click)="handleIconsClick('delete')">
+                <mat-icon svgIcon="delete-forever-icon" aria-hidden="false" aria-label="delete-forever-icon button icon"></mat-icon>
+            </button>
+        </div>
+        <ng-template #notesArchiveIcon>
+            <div class="notecard-actions">
             <button mat-icon-button aria-label="reminder button" matTooltip="Reminder">
                 <mat-icon svgIcon="reminder-icon" aria-hidden="false" aria-label="reminder icon"></mat-icon>
             </button> 
             <button mat-icon-button aria-label="collabrator button" matTooltip="Collabrator">
                 <mat-icon svgIcon="collabrator-icon" aria-hidden="false" aria-label="collabrator icon"></mat-icon>
             </button>
-            <button mat-icon-button aria-label="color button" matTooltip="Background Color Options">
+            <button mat-icon-button aria-label="color button" matTooltip="Background Color Options" (click)="toggleColorPalette()" >
                 <mat-icon svgIcon="color-palatte-icon" aria-hidden="false" aria-label="color button icon"></mat-icon>
             </button>
-            <button mat-icon-button aria-label="archive button" matTooltip="Archive Options" (click)="handleIconsClick('archive')">
+            <div *ngIf="isColorPaletteVisible"class="color-palate-cnt">    
+                <div class="col1" matTooltip="Default" (click)="handleIconsClick('#FFFFFF')"></div>
+                <div class="col2" matTooltip="Coral" (click)="handleIconsClick('#FAAFA8')"></div>
+                <div class="col3" matTooltip="Peach" (click)="handleIconsClick('#F39F76')"></div>
+                <div class="col4" matTooltip="Sand" (click)="handleIconsClick('#FFF8B8')"></div>
+                <div class="col5" matTooltip="Mint" (click)="handleIconsClick('#E2F6D3')"></div>
+                <div class="col6" matTooltip="Sage" (click)="handleIconsClick('#B4DDD3')"></div>
+                <div class="col7" matTooltip="Fog" (click)="handleIconsClick('#D4E4ED')"></div>
+                <div class="col8" matTooltip="Storm" (click)="handleIconsClick('#AECCDC')"></div>
+                <div class="col9" matTooltip="Dusk" (click)="handleIconsClick('#D3BFDB')"></div>
+                <div class="col10" matTooltip="Blossom" (click)="handleIconsClick('#F6E2DD')"></div>
+                <div class="col11" matTooltip="Clay" (click)="handleIconsClick('#E9E3D4')"></div>
+                <div class="col12" matTooltip="Chalk" (click)="handleIconsClick('#EFEFF1')"></div>           
+            </div>
+            <button *ngIf="containerType==='notesContainer' else unarchiveIcon" mat-icon-button aria-label="archive button" matTooltip="Archive Options" (click)="handleIconsClick('archive')">
                 <mat-icon svgIcon="archive-icon" aria-hidden="false" aria-label="archive button icon"></mat-icon>
             </button>
+            <ng-template #unarchiveIcon>
+                <button mat-icon-button aria-label="unarchive button" matTooltip="UnArchive Options" (click)="handleIconsClick('unarchive')">
+                    <mat-icon svgIcon="unarchive-icon" aria-hidden="false" aria-label="unarchive button icon"></mat-icon>
+                </button>
+            </ng-template>
+
             <button mat-icon-button aria-label="more button" matTooltip="More Options" [matMenuTriggerFor]="moreMenu">
                 <mat-icon svgIcon="more-icon" aria-hidden="false" aria-label="more button icon"></mat-icon>
             </button>
             <mat-menu #moreMenu="matMenu">
-                <button mat-menu-item>Item 1</button>
+
+                <button mat-menu-item (click)="handleIconsClick('trash')">Delete</button>
                 <button mat-menu-item>Item 2</button>
               </mat-menu>
-              
-        </div>
-
+            
+            </div>
+        </ng-template>
     </div>
+    
 </div>
 
 

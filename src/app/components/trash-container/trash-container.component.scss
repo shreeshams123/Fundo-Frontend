@@ -1,0 +1,12 @@
+.notes-cnt{
+    display:flex;
+    width: 100%;
+    flex-wrap: wrap;
+    gap:16px;
+}
+.app-note-card {
+    box-sizing: border-box;
+    margin-bottom: 16px;
+    background-color: #fff;
+    padding: 16px;
+}
