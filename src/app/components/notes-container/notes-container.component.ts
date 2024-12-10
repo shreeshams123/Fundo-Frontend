@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { DataService } from 'src/app/services/data-service/data.service';
 import { NotesService } from 'src/app/services/notes-service/notes.service';
 
 @Component({
@@ -6,10 +8,12 @@ import { NotesService } from 'src/app/services/notes-service/notes.service';
   templateUrl: './notes-container.component.html',
   styleUrls: ['./notes-container.component.scss']
 })
-export class NotesContainerComponent implements OnInit {
+export class NotesContainerComponent implements OnInit, OnDestroy {
   notesList : any[] = []
+  searchQuery: string = ""
+  subscription!: Subscription
 
-  constructor(private noteService: NotesService) {}
+  constructor(private noteService: NotesService, private dataService: DataService) {}
 
   ngOnInit(): void {
     //api call to get notes
@@ -22,6 +26,7 @@ export class NotesContainerComponent implements OnInit {
       console.log(err);
     }
     })
+    this.subscription = this.dataService.currSearchQuery.subscribe({next: (res) => this.searchQuery = res})
   }
 
   handleUpdateNotesList($event: {data: any, action: string}) {
@@ -44,4 +49,7 @@ export class NotesContainerComponent implements OnInit {
     }   
   }
   
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
+  }
 }

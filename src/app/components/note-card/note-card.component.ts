@@ -92,9 +92,6 @@ export class NoteCardComponent {
       title: this.noteDetails.title,
       description: this.noteDetails.description,
       color: action,
-      isArchive: this.noteDetails.isArchive,
-      isTrash: this.noteDetails.isTrash,
-      isCreated: this.noteDetails.isCreated
     };
     this.notes.updateNoteApiCall(this.noteDetails.id,payload).subscribe({
       next:(res:any)=>{console.log(res);},error:(err)=>{console.log(err);}});

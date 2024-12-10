@@ -22,6 +22,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
+import { SearchPipe } from './pipe/search.pipe';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import {MatMenuModule} from '@angular/material/menu';
     NotesContainerComponent,
     ArchiveContainerComponent,
     TrashContainerComponent,
+    SearchPipe,
   ],
   imports: [
     BrowserModule,

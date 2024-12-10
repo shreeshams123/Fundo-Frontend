@@ -35,12 +35,12 @@ autoResize(event: Event) {
   textarea.style.height = `${textarea.scrollHeight}px`; 
 }
 
-handleAddNote() {
+handleAddNote(action:string) {
   this.isExpanded = !this.isExpanded
   console.log(this.title, this.description);
-  this.noteservice.postNotesApiCall({title:this.title,description:this.description}).subscribe({next:(res)=>{
+  this.noteservice.postNotesApiCall({title:this.title,description:this.description}).subscribe({next:(res: any)=>{
     console.log(res);
-    this.updateNotesList.emit({data:res, action: "add"})
+    this.updateNotesList.emit({data:res.data, action: action})
 
   },
   error:(err)=>{

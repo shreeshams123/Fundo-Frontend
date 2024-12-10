@@ -4,13 +4,14 @@
         <mat-icon>menu</mat-icon>
       </button>
       <span>FunDo</span>
+      <input [(ngModel)]="searchQuery" (input)="handleSearchQuery()" type="text">
     </mat-toolbar>
     <mat-drawer-container class="dashboard-container" [hasBackdrop]="false">
-        <mat-drawer style="width: 250px;" #drawer [mode]="'over'" [opened]="drawerState">
-          <div>
-            <div mat-list-item style="margin-bottom: 10px"(click)="navigateTo('notes')">Notes</div>
-            <div mat-list-item style="margin-bottom: 10px" (click)="navigateTo('archive')">Archive</div>
-            <div mat-list-item style="margin-bottom: 10px" (click)="navigateTo('trash')">Trash</div>
+        <mat-drawer style="width: 150px;" #drawer [mode]="'over'" [opened]="drawerState">
+          <div class="dashboard-sidenav">
+            <div mat-list-item (click)="navigateTo('notes')">Notes</div>
+            <div mat-list-item (click)="navigateTo('archive')">Archive</div>
+            <div mat-list-item (click)="navigateTo('trash')">Trash</div>
           </div>
         </mat-drawer>
         

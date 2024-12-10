@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataService } from 'src/app/services/data-service/data.service';
 
 @Component({
   selector: 'app-dashboard-container',
@@ -8,7 +9,8 @@ import { Router } from '@angular/router';
 })
 export class DashboardContainerComponent implements OnInit {
   drawerState: boolean = false
-constructor(private router:Router){}
+  searchQuery: string = ""
+constructor(private router:Router, private dataService: DataService){}
   ngOnInit(): void {
     this.router.navigate(["dashboard/notes"])
   }
@@ -18,5 +20,9 @@ this.router.navigate([`/dashboard/${route}`])
 }
 toggleDrawerState() {
   this.drawerState = !this.drawerState
+}
+
+handleSearchQuery() {
+  this.dataService.updateSearchQuery(this.searchQuery)
 }
 }
