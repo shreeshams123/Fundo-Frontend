@@ -1,5 +1,5 @@
 <div class="notes-cnt">
-    <div *ngFor="let noteData of trashlist">
+    <div *ngFor="let noteData of trashlist | search:searchQuery">
         <app-note-card [containerType]="'trashContainer'" (updateNotesList)="handleTrashListNotes($event)" [noteDetails]="noteData" ></app-note-card>
     </div>
 </div>

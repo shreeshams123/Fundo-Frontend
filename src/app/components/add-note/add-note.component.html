@@ -1,7 +1,7 @@
 <div class="compact-note" *ngIf="!isExpanded" (click)="expandNote()">
     <span>Take a note...</span>
 </div>
-<div class="expanded-note" *ngIf="isExpanded">
+<div class="expanded-note" *ngIf="isExpanded" [style.backgroundColor]="color">
     <input placeholder="Title" [(ngModel)]="title">
     <textarea placeholder="Take a note..." (input)="autoResize($event)" [(ngModel)]="description"></textarea>
     <div class="note-actions">
@@ -23,7 +23,7 @@
         </button> 
     </div>
     <div class="note-button">
-        <button mat-button color="primary" (click)="handleAddNote('add')">Close</button>
+        <button mat-button color="primary" (click)="handleAddNote()">Close</button>
     </div>
     
     </div>

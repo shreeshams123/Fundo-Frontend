@@ -15,8 +15,7 @@ export class NotesContainerComponent implements OnInit, OnDestroy {
 
   constructor(private noteService: NotesService, private dataService: DataService) {}
 
-  ngOnInit(): void {
-    //api call to get notes
+  ngOnInit(){
     this.noteService.getNotesApiCall().subscribe({next: (res: any) => {
       console.log(res);
       this.notesList = res?.data.filter((note: any) => note.isArchive === false && note.isTrash == false);
@@ -39,7 +38,7 @@ export class NotesContainerComponent implements OnInit, OnDestroy {
     else if(action === "archive" || action === "trash"){
       this.notesList = this.notesList.filter((note) => note.id !== data.id)
     }
-    else if(action == "color"){
+    else if(action == "update"){
       this.notesList = this.notesList.map((note:any) => {
         if(note.id == data.id) {
           return data
@@ -50,6 +49,7 @@ export class NotesContainerComponent implements OnInit, OnDestroy {
   }
   
   ngOnDestroy() {
+    if(this.subscription)
     this.subscription.unsubscribe()
   }
 }

@@ -23,6 +23,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
 import { SearchPipe } from './pipe/search.pipe';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 
 @NgModule({
@@ -52,7 +54,8 @@ import { SearchPipe } from './pipe/search.pipe';
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

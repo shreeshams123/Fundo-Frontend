@@ -1,7 +1,7 @@
 <div class="notecard-container">
     <div class="notecard" [style.backgroundColor]="noteDetails.color">
-        <span class="notecard-title">{{noteDetails.title | uppercase}}</span>
-        <span class="notecard-description">{{noteDetails.description}}</span>
+        <span class="notecard-title" (click)="openEditNote()">{{noteDetails.title | uppercase}}</span>
+        <span class="notecard-description" (click)="openEditNote()">{{noteDetails.description}}</span>
         <div class="notecard-actions" *ngIf="containerType == 'trashContainer' else notesArchiveIcon">
             <button mat-icon-button aria-label="restore button" matTooltip="Restore Options" (click)="handleIconsClick('restore')">
                 <mat-icon svgIcon="restore-icon" aria-hidden="false" aria-label="restore button icon"></mat-icon>

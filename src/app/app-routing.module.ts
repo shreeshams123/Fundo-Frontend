@@ -8,6 +8,7 @@ import { DashboardContainerComponent } from './components/dashboard-container/da
 import { NotesContainerComponent } from './components/notes-container/notes-container.component';
 import { ArchiveContainerComponent } from './components/archive-container/archive-container.component';
 import { TrashContainerComponent } from './components/trash-container/trash-container.component';
+import { AuthGuardService } from './services/auth-guard/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -19,16 +20,9 @@ const routes: Routes = [
     component: RegistrationComponent
   },
   {
-    path:'notecards',
-    component: NoteCardComponent
-  },
-  {
-    path:'addnotes',
-    component:AddNoteComponent
-  },
-  {
     path: 'dashboard',
     component: DashboardContainerComponent,
+    canActivate: [AuthGuardService],
     children: [
       {
         path: 'notes',

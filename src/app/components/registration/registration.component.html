@@ -1,5 +1,6 @@
 <div class="registercontainer">
-  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>   
+  <div *ngIf="errorMessage" class="alert">{{ errorMessage }}</div> 
+  <div *ngIf="successMessage" class="alert" >{{successMessage}}</div>  
     <form [formGroup]="signupForm" class="register-box-container">
         <div>
         <h1 style="color: yellow;">Fundo</h1>
@@ -13,14 +14,14 @@
               <mat-form-field >
                 <input formControlName="phone"  matInput placeholder="Phone">
                 <mat-error *ngIf="submitted && signupControls?.['phone']?.['errors']?.['required']">Phone number is required</mat-error>
-                <mat-error *ngIf="submitted && signupControls?.['phone']?.['errors']?.['pattern']">Incorrect Phone number Format</mat-error>
+                <mat-error *ngIf="submitted && signupControls?.['phone']?.['errors']?.['pattern']">Invalid Phone number </mat-error>
 
               </mat-form-field>
         </div>
         <mat-form-field class="register-example-full-width ">
             <input formControlName="email" matInput placeholder="Email" type="email">
             <mat-error *ngIf="submitted && signupControls?.['email']?.['errors']?.['required']">Email is required</mat-error>
-            <mat-error *ngIf="submitted && signupControls?.['email']?.['errors']?.['email']">Incorrect Email Format</mat-error>
+            <mat-error *ngIf="submitted && signupControls?.['email']?.['errors']?.['email']">Invalid Email Format </mat-error>
           </mat-form-field>
         <div class="register-input-cnt">
             <mat-form-field >
@@ -30,13 +31,13 @@
               </mat-form-field>
               <mat-form-field >
                 <input formControlName="confirmPassword"  matInput placeholder="Confirm" type="password">
-                <mat-error *ngIf="submitted && signupControls?.['confirm']?.['errors']?.['required']">Confirm Password is required</mat-error>
-                <mat-error *ngIf="submitted && signupControls?.['confirm']?.['errors']?.['mustMatch']">Password and confirm password should be same</mat-error>
+                <mat-error *ngIf="submitted && signupControls?.['confirmPassword']?.['errors']?.['required']">Confirm Password is required</mat-error>
+                <mat-error *ngIf="submitted && signupControls?.['confirmPassword']?.['errors']?.['mustMatch']">Password must match</mat-error>
               </mat-form-field>
               
         </div>
         <div class="register-action-buttons">
-            <button mat-button color="primary">sign in instead</button>
+            <button mat-button color="primary" (click)="navigateTo('')">sign in instead</button>
             <button mat-button color="primary" (click)="handleSignup()" >register</button>
         </div>
        </div>

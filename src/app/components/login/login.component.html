@@ -17,7 +17,7 @@
           </mat-form-field> 
           <button mat-button color="primary" class="login-forgotpassword">Forgot Password</button>
           <div class="login-action-buttons">
-            <button mat-button color="primary">Create account</button>
+            <button mat-button color="primary" (click)="navigateTo('signup')">Create account</button>
             <button mat-button color="primary" (click)="handleLogin()">Login</button>
           </div>
         </form>

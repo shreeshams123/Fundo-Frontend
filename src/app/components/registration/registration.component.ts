@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 export class RegistrationComponent implements OnInit {
   signupForm!:FormGroup;
   submitted:boolean=false;
-  errorMessage:string|null=null
+  errorMessage:string='';
+  successMessage:string='';
   constructor(private formBuilder:FormBuilder,private userservice:UserService,private router:Router){}
   ngOnInit() {
     this.signupForm = this.formBuilder.group({
@@ -21,9 +22,7 @@ export class RegistrationComponent implements OnInit {
         password: ['', [Validators.required,Validators.pattern(
           '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$'
         ) ]],
-        confirmPassword: ['', [Validators.required,Validators.pattern(
-          '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$'
-        ) ]]
+        confirmPassword: ['', [Validators.required]]
     },{
       validator: MustMatch('password', 'confirmPassword')
   });
@@ -35,14 +34,17 @@ export class RegistrationComponent implements OnInit {
     const{name,email,phone,password,confirmPassword}=value
     console.log(this.signupForm.controls);
     this.submitted = true
-    this.errorMessage=null
-    if(status == "INVALID") return
+    if(status == "INVALID") 
+      return
     console.log(this.signupForm);
     console.log(this.signupForm.controls);
     this.userservice.registerApiCall({name,email,phone,password,confirmPassword}).subscribe({next:(res)=>
       {
         console.log(res)
-        this.router.navigate(["/"])
+        this.successMessage="Registration successful";
+        setTimeout(()=>{
+          this.router.navigate(["/"]);
+        },2000);
       },
       error: (err) => {
         console.log(err);
@@ -59,5 +61,8 @@ export class RegistrationComponent implements OnInit {
       })
       
       
+    }
+    navigateTo(route:string){
+      this.router.navigate([`${route}`])
     }
   }

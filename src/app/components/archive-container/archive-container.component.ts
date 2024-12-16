@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { DataService } from 'src/app/services/data-service/data.service';
 import { NotesService } from 'src/app/services/notes-service/notes.service';
 
 @Component({
@@ -6,13 +8,16 @@ import { NotesService } from 'src/app/services/notes-service/notes.service';
   templateUrl: './archive-container.component.html',
   styleUrls: ['./archive-container.component.scss']
 })
-export class ArchiveContainerComponent implements OnInit {
+export class ArchiveContainerComponent implements OnInit,OnDestroy {
   archivelist: any[] = [];
+  subscription!:Subscription;
+  searchQuery:string=""
+  constructor(private noteService: NotesService,private dataService:DataService) {}
 
-  constructor(private noteService: NotesService) {}
 
   ngOnInit(): void {
     this.loadArchivedNotes(); 
+    this.dataService.currSearchQuery.subscribe({next:(res)=>this.searchQuery=res})
   }
 
   loadArchivedNotes(): void {
@@ -42,5 +47,10 @@ else if(action == "color"){
   }) 
 } 
   }
+  ngOnDestroy(){
+    if(this.subscription)
+    this.subscription.unsubscribe()
+  }
+  
   
 }
