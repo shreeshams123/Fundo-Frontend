@@ -38,14 +38,18 @@ export class NotesContainerComponent implements OnInit, OnDestroy {
     else if(action === "archive" || action === "trash"){
       this.notesList = this.notesList.filter((note) => note.id !== data.id)
     }
-    else if(action == "update"){
+    else if(action=== "update"){
       this.notesList = this.notesList.map((note:any) => {
         if(note.id == data.id) {
           return data
         }
         return  note
       }) 
-    }   
+      if(data.isArchive||data.isTrash)
+        {     
+          this.notesList = this.notesList.filter((note) => note.id !== data.id)
+        } 
+      }   
   }
   
   ngOnDestroy() {

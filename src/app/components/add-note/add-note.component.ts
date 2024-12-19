@@ -16,9 +16,12 @@ export class AddNoteComponent {
   isExpanded: Boolean=false;
   color: string = "#ffffff";
   isArchive: boolean = false
+  isTrash:boolean=false
+  isColorPaletteVisible:boolean=false;
+
   @Output() updateNotesList = new EventEmitter()
 
-  constructor(private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer,private noteservice:NotesService,@Optional() public dialogRef: MatDialogRef<AddNoteComponent>,@Optional() @Inject(MAT_DIALOG_DATA) public data: {isExpanded: boolean, noteDetails: any}) {
+  constructor(private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer,private noteservice:NotesService,@Optional() public dialogRef: MatDialogRef<AddNoteComponent>,@Optional() @Inject(MAT_DIALOG_DATA) public data: {isExpanded: boolean, noteDetails: any}|null) {
     iconRegistry.addSvgIconLiteral('reminder-icon', sanitizer.bypassSecurityTrustHtml(REMINDER_ICON));
     iconRegistry.addSvgIconLiteral('collabrator-icon', sanitizer.bypassSecurityTrustHtml(COLLABRATOR_ICON));
     iconRegistry.addSvgIconLiteral('color-palatte-icon', sanitizer.bypassSecurityTrustHtml(COLOR_PALATTE_ICON));
@@ -45,38 +48,74 @@ autoResize(event: Event) {
   textarea.style.height = `${textarea.scrollHeight}px`; 
 }
 
+archiveNote(){
+  this.isArchive=!this.isArchive;
+}
+
+trashNote(){
+  this.isTrash=!this.isTrash;
+}
+toggleColorPalette(){
+  console.log('color palette set to true');
+  this.isColorPaletteVisible=!this.isColorPaletteVisible;
+}
+setColor(color:string){
+this.color=color;
+}
 handleAddNote() {
   this.isExpanded = !this.isExpanded
-  console.log(this.title, this.description);
-  if(this.data)
-    {
-      const editedNote={
-        id:this.data.noteDetails.id,
-        title:this.title,
-        description:this.description,
-        color:this.color
-      }
-      this.noteservice.updateNoteApiCall(this.data.noteDetails.id,editedNote).subscribe({next:(res:any)=>{
-          console.log(res);
+  let action="";
+  if(this.isArchive==false && this.isTrash==false){
+    action='add';
+  }
+  else if(this.isTrash==false){
+    action='archive';
+  }
+  else{
+    action='trash';
+  }
+  console.log(this.title, this.description,this.isArchive);
+  const editedNote={
+    id: this.data?.noteDetails?.id ?? null,
+    title:this.title,
+    description:this.description,
+    color:this.color,
+    isArchive:this.isArchive,
+    isTrash:this.isTrash
+  }
+  if(this.data){
+    this.noteservice.updateNoteApiCall(editedNote.id,editedNote).subscribe({next:(res:any)=>{
+    console.log(res);
       },
     error:(err)=>{
       console.log(err);
     }});
-    this.updateNotesList.emit({data:editedNote,action:'update'});
+    this.dialogRef.close(editedNote);
+
     }
-    else{
-      this.noteservice.postNotesApiCall({title:this.title,description:this.description,isArchive:this.isArchive}).subscribe({next:(res: any)=>{
+    else if(!this.data){
+      console.log('received a note');
+      
+      if(this.title || this.description)
+      {
+        this.noteservice.postNotesApiCall({title:this.title,description:this.description,color:this.color,isArchive:this.isArchive,isTrash:this.isTrash}).subscribe({next:(res: any)=>{
           console.log(res);
         },
         error:(err)=>{
           console.log(err);
         }});
-        this.updateNotesList.emit({data:{title:this.title,description:this.description}, action: this.isArchive ? 'archive' : 'add'})
-    }
+        this.updateNotesList.emit({data:{title:this.title,description:this.description,color:this.color,isArchive:this.isArchive,isTrash:this.isTrash},action:action});
+        }
+      
+      }
   this.title = ""
   this.description = ""
-  console.log(this.data)
+  this.isArchive=false
+  this.isTrash=false
+  }
+
   
 }
-}
+
+
 

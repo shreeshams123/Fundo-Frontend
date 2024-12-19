@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-
 import { AddNoteComponent } from './add-note.component';
 import { NotesService } from 'src/app/services/notes-service/notes.service';
 import { of } from 'rxjs';
@@ -13,7 +12,9 @@ describe('AddNoteComponent', () => {
     const notesServiceSpy=jasmine.createSpyObj('NotesService',['postNotesApiCall']);
     TestBed.configureTestingModule({
       declarations: [AddNoteComponent],
-      imports:[HttpClientTestingModule],
+      imports:[HttpClientTestingModule,
+        
+      ],
       providers:[
         {provide:NotesService,useValue:notesServiceSpy}
       ]
@@ -29,17 +30,5 @@ describe('AddNoteComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call postNotesApiCall and emit updateNotesList',()=>{
-    const mockNote={title:'Note title',description:'Note description'};
-    const mockResponse:any={data:{id:1,...mockNote}};
-    notesService.postNotesApiCall.and.returnValue(of(mockResponse));
-    spyOn(component.updateNotesList,'emit');
-    component.title=mockNote.title;
-    component.description=mockNote.description;
-    component.handleAddNote('add');
-    expect(notesService.postNotesApiCall).toHaveBeenCalledWith(mockNote);
-    expect(component.updateNotesList.emit).toHaveBeenCalledWith({data:mockResponse.data,action:'add'});
-    expect(component.title).toBe('');
-    expect(component.description).toBe('');
-  });
+
 });

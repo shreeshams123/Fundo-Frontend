@@ -10,9 +10,15 @@ import { DataService } from 'src/app/services/data-service/data.service';
 export class DashboardContainerComponent implements OnInit {
   drawerState: boolean = false
   searchQuery: string = ""
+  email:string=""
+  userName:string=""
+  initialValue:string=""
 constructor(private router:Router, private dataService: DataService){}
   ngOnInit(): void {
-    this.router.navigate(["dashboard/notes"])
+    this.router.navigate(["dashboard/notes"]);
+    this.userName=localStorage.getItem('name') as string;
+    this.email=localStorage.getItem('email') as string;
+    this.initialValue=this.userName.charAt(0);
   }
 
 navigateTo(route:string){
@@ -24,5 +30,9 @@ toggleDrawerState() {
 
 handleSearchQuery() {
   this.dataService.updateSearchQuery(this.searchQuery)
+}
+logout(){
+  localStorage.clear();
+  this.router.navigate(['/']);
 }
 }

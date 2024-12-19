@@ -36,14 +36,16 @@ export class LoginComponent implements OnInit {
       return
     this.userService.loginApiCall({email, password}).subscribe({next: (res: any) => {
       console.log(res);
-      const token=res.data.token
-      localStorage.setItem("authtoken", token)
+      const {name,email,token}=res.data;
+      localStorage.setItem("authtoken", token);
+      localStorage.setItem("name",name);
+      localStorage.setItem("email",email);
       this.router.navigate(["/dashboard/notes"])
     },
     error: (err) => {
       console.log(err);
       if(err.error?.message){
-this.errorMessage=err.error.message
+      this.errorMessage=err.error.message
  }
       else{
         this.errorMessage="Unexpected error occured";        

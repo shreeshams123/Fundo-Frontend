@@ -24,4 +24,20 @@
     font-size: large;
   }
   
-  
+  .userBadge{
+    width:40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: green;
+  }
+  mat-menu {
+    padding: 15px,15px,15px,15px; 
+    margin-right: 5px;
+    width: 250px; 
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+ 

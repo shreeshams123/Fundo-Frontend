@@ -38,7 +38,7 @@ if(action==='unarchive'){
 else if(action==='trash'){
   this.archivelist = this.archivelist.filter((note) => note.id != data.id)
 }
-else if(action == "color"){
+else if(action === 'update'){
   this.archivelist = this.archivelist.map((note:any) => {
     if(note.id == data.id) {
       return data
@@ -51,6 +51,5 @@ else if(action == "color"){
     if(this.subscription)
     this.subscription.unsubscribe()
   }
-  
-  
+   
 }

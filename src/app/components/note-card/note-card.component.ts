@@ -102,12 +102,17 @@ export class NoteCardComponent {
   }
 
   openEditNote() {
-    this.dialog.open(AddNoteComponent, {
+    let dialogRef=this.dialog.open(AddNoteComponent, {
       data: {
         isExpanded: true,
         noteDetails: this.noteDetails 
       }
     })
+    dialogRef.afterClosed().subscribe((data) => {
+      this.updateNotesList.emit({data,action:'update'});
+    });
+    
+   
   }
 
 }

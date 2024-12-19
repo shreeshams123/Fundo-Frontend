@@ -12,15 +12,33 @@
         <button mat-icon-button aria-label="collabrator button" matTooltip="Collabrator">
             <mat-icon svgIcon="collabrator-icon" aria-hidden="false" aria-label="collabrator icon"></mat-icon>
         </button>
-        <button mat-icon-button aria-label="color button" matTooltip="Background Color Options">
+        <button mat-icon-button aria-label="color button" matTooltip="Background Color Options" (click)="toggleColorPalette()">
             <mat-icon svgIcon="color-palatte-icon" aria-hidden="false" aria-label="color button icon"></mat-icon>
         </button>
-        <button mat-icon-button aria-label="archive button" matTooltip="Archive Options">
-            <mat-icon svgIcon="archive-icon" aria-hidden="false" aria-label="archive button icon"></mat-icon>
+        <div *ngIf="isColorPaletteVisible"class="color-palate-cnt">    
+            <div class="col1" matTooltip="Default" (click)="setColor('#FFFFFF')"></div>
+            <div class="col2" matTooltip="Coral" (click)="setColor('#FAAFA8')"></div>
+            <div class="col3" matTooltip="Peach" (click)="setColor('#F39F76')"></div>
+            <div class="col4" matTooltip="Sand" (click)="setColor('#FFF8B8')"></div>
+            <div class="col5" matTooltip="Mint" (click)="setColor('#E2F6D3')"></div>
+            <div class="col6" matTooltip="Sage" (click)="setColor('#B4DDD3')"></div>
+            <div class="col7" matTooltip="Fog" (click)="setColor('#D4E4ED')"></div>
+            <div class="col8" matTooltip="Storm" (click)="setColor('#AECCDC')"></div>
+            <div class="col9" matTooltip="Dusk" (click)="setColor('#D3BFDB')"></div>
+            <div class="col10" matTooltip="Blossom" (click)="setColor('#F6E2DD')"></div>
+            <div class="col11" matTooltip="Clay" (click)="setColor('#E9E3D4')"></div>
+            <div class="col12" matTooltip="Chalk" (click)="setColor('#EFEFF1')"></div>           
+        </div>
+        <button mat-icon-button aria-label="archive button" matTooltip="Archive Options" (click)="archiveNote()">
+            <mat-icon svgIcon="archive-icon" aria-hidden="false" aria-label="archive button icon" ></mat-icon>
         </button>
-        <button mat-icon-button aria-label="more button" matTooltip="More Options">
+        <button mat-icon-button aria-label="more button" matTooltip="More Options" [matMenuTriggerFor]="moreMenu">
             <mat-icon svgIcon="more-icon" aria-hidden="false" aria-label="more button icon"></mat-icon>
-        </button> 
+        </button>
+        <mat-menu #moreMenu="matMenu">
+
+            <button mat-menu-item (click)="trashNote()">Delete</button>
+          </mat-menu>
     </div>
     <div class="note-button">
         <button mat-button color="primary" (click)="handleAddNote()">Close</button>

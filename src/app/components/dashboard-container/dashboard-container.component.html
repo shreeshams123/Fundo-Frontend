@@ -4,11 +4,24 @@
         <mat-icon>menu</mat-icon>
       </button>
       <span>FunDo</span>
-      <input [(ngModel)]="searchQuery" (input)="handleSearchQuery()" type="text" style="margin-left: 100px;">
+      <input [(ngModel)]="searchQuery" (input)="handleSearchQuery()" type="text" style="margin-left: 100px; padding: 5px; width:400px" placeholder="Search">
+      <div style="flex-grow: 1;"></div>
+      <div mat-button [matMenuTriggerFor]="menu" class="userBadge">{{initialValue}}</div>
+        <mat-menu #menu="matMenu">
+          <div style="padding-left: 5px;">{{userName}}</div>
+    <div style="padding-left: 5px;">{{email}}</div>
+    <div style="display: flex; align-items: center; cursor: pointer;" (click)="logout()">
+    <button mat-icon-button style="margin-right: 2px;">
+      <mat-icon>logout</mat-icon> 
+    </button>
+  <div >Logout</div> 
+  </div>
+  </mat-menu>
+
     </mat-toolbar>
     <mat-drawer-container class="dashboard-container" [hasBackdrop]="false">
         <mat-drawer  #drawer [mode]="'over'" [opened]="drawerState">
-          <div class="dashboard-sidenav">
+          <div class="dashboard-sidenav" style="cursor: pointer;">
             <div mat-list-item (click)="navigateTo('notes')">Notes</div>
             <div mat-list-item (click)="navigateTo('archive')">Archive</div>
             <div mat-list-item (click)="navigateTo('trash')">Trash</div>
